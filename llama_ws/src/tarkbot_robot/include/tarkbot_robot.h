@@ -63,7 +63,7 @@
 #define  ID_ROS2CTR_LGT     0x52    //ROS向下位机发送的灯光调试数据
 #define  ID_ROS2CTR_LST     0x53    //ROS向下位机发送的灯光保存数据
 #define  ID_ROS2CTR_BEEP    0x54    //ROS向下位机发送的蜂鸣器数据
-#define  ID_ROS2CTR_LASER   0x55    //ROS向下位机发送的激光雷达开关数据
+#define  ID_ROS2CTR_LASER   0xfd    //ROS向下位机发送的激光雷达开关数据
 
 #define  LIGHT_M1    0x10    //单色模式  
 #define  LIGHT_M2    0x20    //呼吸模式  
