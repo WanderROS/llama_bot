@@ -1,0 +1,4 @@
+llama_ws/build
+llama_ws/devel
+llama_ws/.catkin_workspace
+llama_ws/src/CMakeLists.txt
