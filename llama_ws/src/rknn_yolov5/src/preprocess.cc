@@ -59,3 +59,40 @@ int resize_rga(rga_buffer_t &src, rga_buffer_t &dst, const cv::Mat &image, cv::M
     IM_STATUS STATUS = imresize(src, dst);
     return 0;
 }
+
+int rga_resize(cv::Mat &img,cv::Mat &img_resize,cv::Size &size)
+{
+    // init rga context
+    rga_buffer_t src;
+    rga_buffer_t dst;
+    im_rect      src_rect;
+    im_rect      dst_rect;
+    memset(&src_rect, 0, sizeof(src_rect));
+    memset(&dst_rect, 0, sizeof(dst_rect));
+    memset(&src, 0, sizeof(src));
+    memset(&dst, 0, sizeof(dst));
+
+
+//    printf("resize with RGA!\n");
+//    resize_buf = malloc(height * width * 3);
+//    memset(resize_buf, 0x00, height * width * 3);
+
+
+    src = wrapbuffer_virtualaddr((void*)img.data, img.cols, img.rows, RK_FORMAT_RGB_888);
+    dst = wrapbuffer_virtualaddr((void*)img_resize.data, size.width, size.height, RK_FORMAT_RGB_888);
+
+
+    int ret = imcheck(src, dst, src_rect, dst_rect);
+    if (IM_STATUS_NOERROR != ret)
+    {
+        printf("%d, check error! %s", __LINE__, imStrError((IM_STATUS)ret));
+        return -1;
+    }
+    IM_STATUS STATUS = imresize(src, dst);
+
+    return STATUS;
+
+    // for debug
+    //cv::Mat resize_img(cv::Size(width, height), CV_8UC3, resize_buf);
+    //cv::imwrite("resize_input.jpg", resize_img);
+}

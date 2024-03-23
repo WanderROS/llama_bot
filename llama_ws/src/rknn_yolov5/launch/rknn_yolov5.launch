@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="rknn_yolov5" type="rknn_yolov5_img" name="rknn_yolov5" output="screen">
+
+        <param name="is_offline_image_mode" value="false" type="bool" />
+
+        <param name="model_file"          value="$(find rknn_yolov5)/config/yolov5s.rknn" type="str" />
+        <param name="yaml_file"           value="$(find rknn_yolov5)/config/yolov5.yaml" type="str" />
+        <param name="offline_images_path" value="$(find rknn_yolov5)/config/images" type="str" />
+        <param name="offline_output_path" value="$(find rknn_yolov5)/config/images_output" type="str" />
+
+        <param name="sub_image_topic" value="/usb_cam/image_raw" type="str" />
+        <param name="pub_image_topic" value="/camera/image_det" type="str" />
+
+        <param name="print_perf_detail" value="false" type="bool" />
+        <param name="use_multi_npu_core" value="false" type="bool" />
+        <param name="output_want_float" value="true" type="bool" />
+
+        <param name="conf_threshold" value="0.3" type="double" />
+        <param name="nms_threshold" value=" 0.3" type="double" />
+
+    </node>
+         <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+           <param name="video_device" value="/dev/video0" />
+           <param name="image_width" value="640" />
+           <param name="image_height" value="480" />
+           <param name="pixel_format" value="yuyv" />
+           <param name="camera_frame_id" value="usb_cam" />
+         </node>
+</launch>

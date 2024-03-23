@@ -1,4 +1,6 @@
 llama_ws/build
 llama_ws/devel
 llama_ws/.catkin_workspace
+llama_ws/.vscode
 llama_ws/src/CMakeLists.txt
+llama_ws/src/rknn_yolov5/config/images_output/
