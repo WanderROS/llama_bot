@@ -222,7 +222,6 @@ int RknnRun::run_infer_thread()
         channel = input_attrs[0].dims[3];
     }
 
-    printf("model input height=%d, width=%d, channel=%d\n", height, width, channel);
 
     rknn_input inputs[1];
     memset(inputs, 0, sizeof(inputs));
@@ -309,8 +308,6 @@ int RknnRun::run_infer_thread()
         // 缩放
         if (img_width != width || img_height != height)
         {
-            printf("imagesize: img_width: %d img_height:%d,width:%d,height:%d\n", img_width, img_height, width, height);
-            printf("resize image by rga\n");
             ret = resize_rga(src, dst, infer_data.orig_img, resized_img, infer_data.mod_size);
             if (ret != 0)
             {
@@ -397,7 +394,6 @@ int RknnRun::run_process_thread()
     {
         InferData infer_data;
         process_data_queue.wait_and_pop(infer_data);
-        printf("received images!!!!!!\n");
         cv::Mat infer_data_orig_img = infer_data.orig_img.clone(); // 拷贝一份绘制，否则会影响到原始图片data
         rknn_output *outputs = infer_data.outputs;                 // 获取结构体的指针
         cv::Size mod_size = infer_data.mod_size;
@@ -408,7 +404,7 @@ int RknnRun::run_process_thread()
 
         std::vector<int> out_index = {0, 1, 2};
         detect_result_group_t detect_result_group;
-        printf("post_process model:%d,%d,scale:%f,%f!!!!!!!!!\n", mod_size.height, mod_size.width, scale_w, scale_h);
+    
 
         post_process((int8_t *)outputs[0].buf, (int8_t *)outputs[1].buf, (int8_t *)outputs[2].buf, mod_size.height, mod_size.width,
                      conf_threshold, nms_threshold, pads, scale_w, scale_h, out_zps, out_scales, &detect_result_group,label_names);
@@ -428,7 +424,11 @@ int RknnRun::run_process_thread()
             rectangle(infer_data_orig_img, cv::Point(x1, y1), cv::Point(x2, y2), cv::Scalar(256, 0, 0, 256), 3);
             putText(infer_data_orig_img, text, cv::Point(x1, y1 + 12), cv::FONT_HERSHEY_SIMPLEX, 0.4, cv::Scalar(255, 255, 255));
         }
-
+        ret = rknn_outputs_release(ctx, io_num.n_output, outputs); 
+        if(ret !=0){
+            ROS_INFO_STREAM("rknn outputs release error!\n");
+            ros::shutdown();
+        }     
         frame_cnt++;
         if (frame_cnt % 30 == 0)
         {
@@ -441,7 +441,7 @@ int RknnRun::run_process_thread()
         }
         image_msg = cv_bridge::CvImage(infer_data.header, "rgb8", infer_data_orig_img).toImageMsg(); // opencv-->ros
         image_pub.publish(image_msg);                                                                // 发布绘制了检测框的图像
-
+        
         if (is_offline_image_mode) // 离线模式会保存图片
         {
             std::string output_file = offline_output_path + "/" + std::to_string(infer_data.header.seq) + ".jpg";
