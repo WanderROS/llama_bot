@@ -143,8 +143,10 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/tarkbot_driver_node.cpp)
 
 add_executable(tarkbot_robot src/tarkbot_robot.cpp)
+add_executable(laser_on_off src/laser_on.cpp)
 
 add_dependencies(tarkbot_robot ${PROJECT_NAME}_gencpp)
+add_dependencies(laser_on_off ${PROJECT_NAME}_gencpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -164,7 +166,10 @@ target_link_libraries(tarkbot_robot
     ${catkin_LIBRARIES} 
     ${Boost_LIBRARIES}
 ) 
-
+target_link_libraries(laser_on_off
+    ${catkin_LIBRARIES} 
+    ${Boost_LIBRARIES}
+) 
 #############
 ## Install ##
 #############
