@@ -1,0 +1,5 @@
+<launch>
+    <!-- openCR 控制板 -->
+    <include file="$(find tarkbot_robot)/launch/robot.launch" />
+    <include file="$(find ydlidar_ros_driver)/launch/X2.launch" />
+</launch>
