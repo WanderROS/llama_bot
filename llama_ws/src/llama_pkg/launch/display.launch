@@ -1,7 +1,13 @@
+<?xml version="1.0"?>
 <launch>
     <!-- openCR 控制板 -->
     <include file="$(find tarkbot_robot)/launch/robot.launch" />
     <include file="$(find ydlidar_ros_driver)/launch/X2.launch" />
 
     <include file="$(find llama_pkg)/launch/urdf.launch" />
+    <node
+        name="rviz"
+        pkg="rviz"
+        type="rviz"
+        args="-d $(find llama_pkg)/rviz/default.rviz" />
 </launch>
