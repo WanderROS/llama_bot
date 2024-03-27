@@ -1,7 +1,7 @@
 <launch>
 
     <node name="laser_on_off" pkg="tarkbot_robot" type="laser_on_off" output="screen" respawn="false"/> 
-
+    <node name="monitor_battery" pkg="tarkbot_robot" type="check_battery.py" output="screen" respawn="false"/> 
     <!-- 标签 -->
     <arg name="base_frame"     default="base_link"/>  
     <arg name="odom_frame"     default="odom"/>  
