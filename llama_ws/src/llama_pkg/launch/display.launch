@@ -5,6 +5,7 @@
     <include file="$(find ydlidar_ros_driver)/launch/X2.launch" />
 
     <include file="$(find llama_pkg)/launch/urdf.launch" />
+    <include file="$(find llama_pkg)/launch/usb_cam.launch" />
     <node
         name="rviz"
         pkg="rviz"
