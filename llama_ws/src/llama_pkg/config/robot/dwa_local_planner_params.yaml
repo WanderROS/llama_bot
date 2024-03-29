@@ -1,0 +1,65 @@
+DWAPlannerROS:
+
+# Robot Configuration Parameters
+  max_vel_x: 0.08 #机器人的最大 x 速度 默认值：0.55
+  min_vel_x: 0.0 #-0.08 #机器人的最小x速度（以m / s为单位），向后运动为负 默认值：0.0
+
+  max_vel_y: 0.0 #机器人的最大 y 速度
+  min_vel_y: 0.0 #机器人的最小 y 速度
+
+# The velocity when robot is moving in a straight line
+  max_vel_trans:  0.08 #机器人最大平移速度的绝对值 默认值：0.55
+  min_vel_trans:  0.01 #机器人最小平移速度的绝对值 默认值：0.1
+
+  max_vel_theta: 1.0 #机器人最大旋转速度的绝对值 默认值：1.0
+  min_vel_theta: 0.4 #机器人最小旋转速度的绝对值 默认值：0.4
+
+  acc_lim_x: 2.5 #机器人的 x 加速度极限 默认值：2.5
+  acc_lim_y: 0.0 #机器人的 y 加速度极限 默认值：2.5
+  acc_lim_theta: 3.2 #机器人的旋转加速度极限 默认值：3.2
+
+# Goal Tolerance Parametes (goal error)
+  # xy_goal_tolerance: 0.01 #2023.5.14再次改小为0.01=1cm #0.03 #0.05 #5cm 实现目标时控制器在 x 和 y 距离内的公差 默认值：0.10
+  # yaw_goal_tolerance: 0.0087 #2023.5.14再次改小为0.0087=0.5deg  #0.035 # 0.035=2deg 控制器在实现目标时偏航/旋转时的弧度公差 默认值：0.05
+  # latch_xy_goal_tolerance: false #如果被锁定，如果机器人到达目标xy位置，它将简单地在原地旋转，即使它最终超出了目标公差 默认值：假
+
+  xy_goal_tolerance: 0.03 #2023.5.14再次改小为0.01=1cm #0.03 #0.05 #5cm 实现目标时控制器在 x 和 y 距离内的公差 默认值：0.10
+  yaw_goal_tolerance: 0.06 #2023.5.14再次改小为0.0087=0.5deg  #0.035 # 0.035=2deg 控制器在实现目标时偏航/旋转时的弧度公差 默认值：0.05
+  latch_xy_goal_tolerance: false #如果被锁定，如果机器人到达目标xy位置，它将简单地在原地旋转，即使它最终超出了目标公差 默认值：假
+
+# Forward Simulation Parameters
+  sim_time: 2.0 #1.7 #向前模拟轨迹的时间 默认值：1.7 太小不停地拐弯，轨迹不流畅；太大走大圈和轨迹不符合
+  vx_samples: 20  #探索 x 速度空间时要使用的样本数 默认值：3
+  vy_samples: 0 #探索 y 速度空间时要使用的样本数 默认值：10
+  vtheta_samples: 40 #探索θ速度空间时要使用的样本数量 默认值：20
+  controller_frequency: 10.0 #调用此控制器的频率（以 Hz 为单位） 默认值：20.0
+
+
+#cost =
+#  path_distance_bias * (从轨迹端点到路径的距离，单位为米)
+#  + goal_distance_bias * (从轨迹端点到局部目标的距离，单位为米)
+#  + occdist_scale * (障碍成本中沿轨迹的最大障碍成本（0-254）)
+  
+# Trajectory Scoring Parameters 轨迹评分参数
+  path_distance_bias: 32.0 #32.0 #控制器应保持与给定路径的接近程度的权重 默认值：32.0 #本地规划器与全局路径保持一致的权重 较大的值将使本地规划器更倾向于跟踪全局路径
+  goal_distance_bias: 20.0 #24.0 #24.0 控制器应尝试达到其本地目标的权重也控制速度 默认值：24.0 #会使机器人与全局路径的一致性偏低
+  occdist_scale: 0.02 #0.01 #控制器应尝试避免障碍物的权重 默认值：0.01
+  forward_point_distance: 0.325 #0.325 #从机器人中心点到放置一个附加得分点的距离 默认值：0.325
+  stop_time_buffer: 0.2 #机器人在碰撞前必须停止的时间量，以使轨迹在几秒钟内被视为有效 默认值：0.2
+  scaling_speed: 0.25 #开始缩放机器人占地面积的速度的绝对值，以 m/s 为单位 默认值：0.25
+  max_scaling_factor: 0.2 #将机器人的占地面积缩小到以下列的最大系数 默认值：0.2
+
+# Oscillation Prevention Parameters
+  oscillation_reset_dist: 0.05 #在振荡标志重置之前，机器人必须以米为单位行进多远 默认值：0.05
+
+# Debugging
+  publish_traj_pc : true
+  publish_cost_grid_pc: true
+
+  prune_plan: false
+  use_dwa: true
+  restore_defaults: false
+
+#http://wiki.ros.org/dwa_local_planner?distro=noetic
+
+

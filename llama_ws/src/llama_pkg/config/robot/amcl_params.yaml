@@ -1,0 +1,63 @@
+use_map_topic: true #设置为 true 时，AMCL 将订阅地图主题，而不是进行服务调用以接收其地图。默认：假
+
+odom_frame_id: "odom"
+base_frame_id: "base_link"
+global_frame_id: "map"
+
+
+min_particles: 100 #500 #允许的最小颗粒数。默认值：100
+max_particles: 3000 #允许的最大粒子数。默认值：5000
+update_min_d: 0.2 #在执行过滤器更新之前需要平移移动 默认：0.2米
+update_min_a: 0.2 #0.52 #在执行过滤器更新之前需要旋转移动。默认值：π/6.0 弧度
+
+resample_interval: 1 #2 #重采样间隔。默认值：2
+
+## Increase tolerance because the computer can get quite busy 
+transform_tolerance: 1.0 #将已发布的转换的日期后一段时间，以指示此转换对未来有效。默认值：0.1 秒
+recovery_alpha_slow: 0.001 #慢速平均权重滤波器的指数衰减率，用于通过添加随机姿势来决定何时恢复。一个好的值可能是 0.001。
+recovery_alpha_fast: 0.1 #快速平均权重滤波器的指数衰减率，用于通过添加随机姿势来决定何时恢复。一个好的值可能是 0.1。
+
+## Publish scans from best pose at a max of 10 Hz
+gui_publish_rate: 10.0 #发布扫描和路径以进行可视化的最大速率 （Hz），禁用为 -1.0。默认值：-1.0 Hz
+
+
+kld_err: 0.05 #真实分布和估计分布之间的最大误差。默认值：0.01
+kld_z: 0.99 #（1 - p） 的高标准正态分位数，其中 p 是估计的偏差小于 kld_err 的概率。默认值：0.99
+
+
+laser_max_beams: 60 #30 #更新滤光片时，每次扫描中要使用的均匀间隔光束的数量。默认值：30
+laser_max_range: 12.0 #考虑的最大扫描范围;-1.0 将导致使用激光器报告的最大范围。默认值：-1.0
+laser_z_hit: 0.5 #0.95 #模型z_hit部分的混合物重量。默认值：0.95
+aser_z_short: 0.05 #0.1 #模型z_short部分的混合物重量。默认值：0.1
+laser_z_max: 0.05 #z_max模型部分的混合物重量。默认值：0.05
+laser_z_rand: 0.5 #0.05 #模型z_rand部分的混合物重量。默认值：0.05
+laser_sigma_hit: 0.2 #z_hit部分中使用的高斯模型的标准差。默认：0.2米
+laser_lambda_short: 0.1 #模型z_short部分的指数衰减参数。默认值：0.1
+laser_likelihood_max_dist: 2.0 #在地图上进行障碍物膨胀的最大距离，用于likelihood_field模型。默认：2.0米
+laser_model_type: "likelihood_field" #默认值：“likelihood_field”
+
+
+# 这些参数用于控制里程计模型，即用于估计机器人运动的里程计数据的不确定性。
+# odom_alpha1和odom_alpha2控制转向运动的不确定性，而odom_alpha3和odom_alpha4控制直线运动的不确定性。
+# 根据具体的里程计传感器，可以根据其特性进行调整。例如，如果里程计传感器在转弯时有较大的误差，
+# 则可以增加odom_alpha1和odom_alpha2的值以增加不确定性，从而减少对里程计数据的依赖。
+odom_model_type: "diff" #默认值：“diff”
+odom_alpha1: 0.2
+odom_alpha2: 0.2
+odom_alpha3: 0.2
+odom_alpha4: 0.2
+
+
+initial_pose_x: 0
+initial_pose_y: 0
+initial_pose_a: 0
+
+initial_cov_xx: 0.5
+initial_cov_yy: 0.5
+initial_cov_aa: 0.5 #初始位置是不确定的
+
+
+#http://wiki.ros.org/amcl
+
+#部分参数参考了github turtlebot3代码
+

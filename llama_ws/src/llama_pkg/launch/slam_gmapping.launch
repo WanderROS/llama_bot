@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- https://wiki.ros.org/gmapping -->
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+        <param name="base_frame" value="base_link"/>
+        <param name="map_frame" value="map"/>
+        <param name="map_update_interval" value="1.0"/>
+    </node>
+</launch>
