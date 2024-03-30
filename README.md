@@ -69,8 +69,7 @@
    ```
 
 7. 安装 RKNN：
-
-8. 1. 更新以及安装软件：
+   1. 更新以及安装软件：
 
       ```shell
       sudo apt-get update
@@ -157,29 +156,28 @@
       done
       ```
 
-9. YOLOv5 在 RK3588 上运行需要安装 mpp 和 rga 这两个三方依赖。进入 `rknpu2/examples/3rdparty` 目录下可以看到 mpp 和 rga 文件夹。
+8. YOLOv5 在 RK3588 上运行需要安装 mpp 和 rga 这两个三方依赖。进入 `rknpu2/examples/3rdparty` 目录下可以看到 mpp 和 rga 文件夹。
 
-10. 配置 RK3588 上的 mpp 环境：
-
-11. 1. 进入 `rknpu2/examples/3rdparty/mpp` 目录：
+9. 配置 RK3588 上的 mpp 环境：
+   1. 进入 `rknpu2/examples/3rdparty/mpp` 目录：
 
        ```shell
        cd rknpu2/examples/3rdparty/mpp
        ```
 
-    2. 拷贝 `include` 目录下的头文件到 `/usr/include/` 目录下：
+   2. 拷贝 `include` 目录下的头文件到 `/usr/include/` 目录下：
 
        ```shell
        sudo cp -r include/* /usr/include/
        ```
 
-    3. 拷贝动态库文件到 `/usr/lib/` 目录下：
+   3. 拷贝动态库文件到 `/usr/lib/` 目录下：
 
        ```shell
        sudo cp Linux/aarch64/* /usr/lib/
        ```
 
-12. 配置 RK3588 上的 rga 环境：
+10. 配置 RK3588 上的 rga 环境：
 
     1. 进入 `rknpu2/examples/3rdparty/rga/RK3588` 目录：
 
