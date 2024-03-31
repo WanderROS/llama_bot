@@ -4,6 +4,7 @@
     <!-- <include file="$(find llama_pkg)/launch/hector_mapping.launch" /> -->
     <!-- <include file="$(find llama_pkg)/launch/slam_gmapping.launch" /> -->
     <include file="$(find llama_pkg)/launch/move_base.launch" />
+    <!-- <include file="$(find rknn_yolov5)/launch/rknn_yolov5.launch" /> -->
     <node
         name="rviz"
         pkg="rviz"
